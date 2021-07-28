@@ -1,5 +1,9 @@
-let singapore = [ 1.29,103.85]; // #1 Singapore latlng
-let map = L.map('map').setView(singapore, 12); // #2 Set the center point// .map (id of the map in html)
+// define singapore lat & long
+let singapore = [ 1.29,103.85]; 
+
+// setting up viewer's map POV
+let map = L.map('map').setView(singapore, 12); 
+
 // setup the tile layers
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -43,7 +47,7 @@ window.addEventListener('DOMContentLoaded', async ()=>{
   let response = await axios.get("data/carpark-rates/ura_parking.geojson");
   let ura_layer = L.geoJson(response.data, {
       onEachFeature: function(feature, layer) {
-        // console.log(feature.properties)
+        console.log(feature)
         // layer.bindPopup(feature.properties.Description);
 
     
@@ -69,6 +73,24 @@ window.addEventListener('DOMContentLoaded', async ()=>{
     'color':'blue',
     // 'fillColor':'orange'
     })  
+
+    // adding layers based on carpark type
+    var car_lots = [{
+        "type": "Feature",
+        "properties":{
+            "TYPE": "CAR LOTS"
+        }
+    }]
+    
+    L.geoJson(car_lots,{
+        filter: function(feature, layer){
+            return feature.properties.show_on_map;
+        }
+    
+    }) .addTo(map);
+    
+    
+
 
 })
 
