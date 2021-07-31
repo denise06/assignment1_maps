@@ -3,5 +3,6 @@ async function loadData() {
     // csv object is available from csvtojson package
     let json = await csv().fromString(response.data);
     return transformData(json);
+    console.log (transformData)
 }
 

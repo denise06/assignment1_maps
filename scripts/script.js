@@ -17,37 +17,39 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 
 
 
-// Add map search box 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
+// // Add map search box 
+// L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+// }).addTo(map);
  
-const geocoder = L.Control.geocoder({
-    geocoder: L.Control.Geocoder.nominatim({
-        geocodingQueryParams: {countrycodes: 'SG'}
-    }),
-    defaultMarkGeocode: false,
-}).addTo(map);
+// const geocoder = L.Control.geocoder({
+//     geocoder: L.Control.Geocoder.nominatim({
+//         geocodingQueryParams: {countrycodes: 'SG'}
+//     }),
+//     defaultMarkGeocode: false,
+// }).addTo(map);
  
-geocoder.on('markgeocode', function(e) {
-    if (searchLocation) {
-        map.removeLayer(searchLocation);
-    }
-    const latlng = e.geocode.center;
-    // marker will mbe removed and placed in the new location
-    searchLocation = L.marker(latlng).addTo(map);
+// geocoder.on('markgeocode', function(e) {
+//     if (searchLocation) {
+//         map.removeLayer(searchLocation);
+//     }
+//     const latlng = e.geocode.center;
+//     // marker will mbe removed and placed in the new location
+//     searchLocation = L.marker(latlng).addTo(map);
 
-    map.fitBounds(e.geocode.bbox);
-  })
-  .addTo(map);  
+//     map.fitBounds(e.geocode.bbox);
+//   })
+//   .addTo(map);  
 
-  
+// // create marker cluster
+// let markerClusterLayer = L.markerClusterGroup()
+
 //   Read the URA parking lot 
 window.addEventListener('DOMContentLoaded', async ()=>{
   let response = await axios.get("data/carpark-rates/ura_parking.geojson");
   let ura_layer = L.geoJson(response.data, {
       onEachFeature: function(feature, layer) {
-        console.log(feature)
+        // console.log(feature)
         // layer.bindPopup(feature.properties.Description);
 
     
@@ -66,36 +68,42 @@ window.addEventListener('DOMContentLoaded', async ()=>{
             <div>`);
         
       }
+    
+      
   }).addTo(map);
   
 //   style the URA parking layer
   ura_layer.setStyle({
     'color':'blue',
-    // 'fillColor':'orange'
     })  
-
-    // adding layers based on carpark type
-    var car_lots = [{
-        "type": "Feature",
-        "properties":{
-            "TYPE": "CAR LOTS"
-        }
-    }]
-    
-    L.geoJson(car_lots,{
-        filter: function(feature, layer){
-            return feature.properties.show_on_map;
-        }
-    
-    }) .addTo(map);
-    
-    
 
 
 })
 
 
+// /commonapi/search?searchVal={SearchText}&returnGeom={Y}&getAddrDetails={Y}&pageNum={PageNumber}
 
+// adding layers based on carpark type
 
+var vehicleType =[{
+    "type": "Feature",
+    "properties": {
+        "TYPE": "CAR LOTS"
+    }
+},
+{
+    "type": "Feature",
+    "properties": {
+        "TYPE": "MYCYCLE LOTS"
+    }
+}
+]
 
-
+L.geoJSON(vehicleType, {
+    style: function(feature){
+        switch (feature.properties.TYPE) {
+            case 'CAR LOTS': return {color: "#ff0000"};
+            case 'MYCYCLE LOTS':   return {color: "#00FF00"};
+    }
+}
+}).addTo(map);
