@@ -1,8 +1,8 @@
 // define singapore lat & long
-let singapore = [ 1.29,103.85]; 
+let singapore = [1.29, 103.85];
 
 // setting up viewer's map POV
-let map = L.map('map').setView(singapore, 12); 
+let map = L.map('map').setView(singapore, 12);
 
 // setup the tile layers
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -12,98 +12,111 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     tileSize: 512,
     zoomOffset: -1,
     accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw' //demo access token
-}).addTo(map); 
+}).addTo(map);
 
 
+//   Read the URA available parking lot 
+window.addEventListener('DOMContentLoaded', async () => {
+    let response = await axios.get("data/carpark-rates/ura_parking.geojson");
+    let ura_layer = L.geoJson(response.data, {
+        onEachFeature: function (feature, layer) {
+            // console.log(feature)
 
+            // display only the type and name of carpark
 
-// // Add map search box 
-// L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-// }).addTo(map);
- 
-// const geocoder = L.Control.geocoder({
-//     geocoder: L.Control.Geocoder.nominatim({
-//         geocodingQueryParams: {countrycodes: 'SG'}
-//     }),
-//     defaultMarkGeocode: false,
-// }).addTo(map);
- 
-// geocoder.on('markgeocode', function(e) {
-//     if (searchLocation) {
-//         map.removeLayer(searchLocation);
-//     }
-//     const latlng = e.geocode.center;
-//     // marker will mbe removed and placed in the new location
-//     searchLocation = L.marker(latlng).addTo(map);
-
-//     map.fitBounds(e.geocode.bbox);
-//   })
-//   .addTo(map);  
-
-// // create marker cluster
-// let markerClusterLayer = L.markerClusterGroup()
-
-//   Read the URA parking lot 
-window.addEventListener('DOMContentLoaded', async ()=>{
-  let response = await axios.get("data/carpark-rates/ura_parking.geojson");
-  let ura_layer = L.geoJson(response.data, {
-      onEachFeature: function(feature, layer) {
-        // console.log(feature)
-        // layer.bindPopup(feature.properties.Description);
-
-    
-    // display only the type and name of carpark
-
-        let divElement = document.createElement('div');
+            let divElement = document.createElement('div');
             divElement.innerHTML = feature.properties.Description;
             let type = divElement.querySelector('td').innerHTML;
             let no_lot = divElement.querySelectorAll('td')[1].innerHTML;
             let location = divElement.querySelectorAll('td')[3].innerHTML;
-            
-            layer.bindPopup(`<div>
-            <h2>${type}</h2>
-            <h3>Availability: ${no_lot}</h3>
-            <h3>Location: ${location}</h3>
-            <div>`);
-        
-      }
-    
-      
-  }).addTo(map);
-  
-//   style the URA parking layer
-  ura_layer.setStyle({
-    'color':'blue',
-    })  
 
+            layer.bindPopup(`<div>
+            <h3>${type}</h2>
+            <p><b>Availability:</b> ${no_lot}</p>
+            <p><b>Location: </b>${location}</p>
+            <div>`);
+
+        }
+
+
+    }).addTo(map);
+    
+    //   style the URA parking layer
+    ura_layer.setStyle({
+        'color': 'blue',
+    })
+    // // adding layers based on carpark type
+
+    // var vehicleType =[{
+    //     "type": "Feature",
+    //     "properties": {
+    //         "TYPE": "CAR LOTS"
+    //     }
+    // },
+    // {
+    //     "type": "Feature",
+    //     "properties": {
+    //         "TYPE": "MYCYCLE LOTS"
+    //     }
+    // }
+    // ]
+
+    // L.geoJSON(vehicleType, {
+    //     style: function(feature){
+    //         switch (feature.properties.TYPE) {
+    //             case 'CAR LOTS': return {color: "#ff0000"};
+    //             case 'MYCYCLE LOTS':   return {color: "#00FF00"};
+    //     }
+    // }
+    // }).addTo(map);
+
+
+    // Read the carpark rates geojson file
+    let rates = await axios.get("data/carpark-rates/carpark-rates_LL.geojson")
+    let rate_layer = L.geoJson(rates.data, {
+        onEachFeature: function (feature, layer) {
+            // console.log(feature)
+            let divElement = document.createElement('div');
+            // divElement.innerHTML = feature.properties.Description;
+            let carpark = feature.properties.carpark;
+            let cat = feature.properties.category
+            let wkDayRates = feature.properties.weekdays_rate_1;
+            let satRates = feature.properties.saturday_rate;
+            let sunRates = feature.properties.sunday_publicholiday_rate
+
+
+            layer.bindPopup(`<div>
+            <h3>${carpark}</h2>
+            <p><b>Region: </b>${cat} </p>
+            <p><b>Weekday Rates: </b>${wkDayRates}</p>
+            <p><b>Saturday Rates: </b>${satRates}</p>
+            <p><b>Sunday/PH Rates: </b>${sunRates}</p>
+            <div>`);
+
+        }
+    }).addTo(map);
+    
+    
 
 })
 
 
-// /commonapi/search?searchVal={SearchText}&returnGeom={Y}&getAddrDetails={Y}&pageNum={PageNumber}
 
-// adding layers based on carpark type
+// let AvailableLayer = L.layerGroup();
 
-var vehicleType =[{
-    "type": "Feature",
-    "properties": {
-        "TYPE": "CAR LOTS"
-    }
-},
-{
-    "type": "Feature",
-    "properties": {
-        "TYPE": "MYCYCLE LOTS"
-    }
-}
-]
+// async function getAvailablelayer() {
+//     let availResponse = await axios.get("data/carpark-rates/CarParkAvailability.json")
+//         .bindPopup('<p>${AvailableLots}</p>')
 
-L.geoJSON(vehicleType, {
-    style: function(feature){
-        switch (feature.properties.TYPE) {
-            case 'CAR LOTS': return {color: "#ff0000"};
-            case 'MYCYCLE LOTS':   return {color: "#00FF00"};
-    }
-}
-}).addTo(map);
+//     for (let obj of availResponse.data) {
+//         const { Development, Location } = obj;
+//         L.circle(Location, {
+//             color: 'yellow',
+//             fillColor: "yellow",
+//             fillOpacity: 0.5,
+//             radius: 50
+//         }).bindPopup(`<p>${Development}</p>`).addTo(AvailableLayer);
+//     }
+// }
+
+// Adding layers control to the maps
