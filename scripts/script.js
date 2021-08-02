@@ -21,8 +21,17 @@ L.tileLayer(
 
 let group = L.layerGroup();
 let group2 = L.layerGroup();
-let group3 = L.layerGroup();
+let group3East = L.layerGroup();
+let group3Hotels = L.layerGroup();
 
+// Define functions to filter data based on categories
+function filterEast(feature){
+    if (feature.properties.category=="East") return true
+}
+
+function filterHotel(feature){
+    if (feature.properties.category=="Hotels") return true
+}
 
 //   Read the URA available parking lot 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -30,8 +39,6 @@ window.addEventListener('DOMContentLoaded', async () => {
     let ura_layer = L.geoJson(response.data, {
         onEachFeature: function (feature, layer) {
             // console.log(feature)
-
-            // display only the type and name of carpark
 
             let divElement = document.createElement('div');
             divElement.innerHTML = feature.properties.Description;
@@ -47,45 +54,15 @@ window.addEventListener('DOMContentLoaded', async () => {
 
         }
 
-    // }).addTo(map);
-        }).addTo(group);      
-
-    // //   style the URA parking layer
-    // ura_layer.setStyle({
-    //     'color': 'blue',
-    // })
-    // // adding layers based on carpark type
-
-    // var vehicleType =[{
-    //     "type": "Feature",
-    //     "properties": {
-    //         "TYPE": "CAR LOTS"
-    //     }
-    // },
-    // {
-    //     "type": "Feature",
-    //     "properties": {
-    //         "TYPE": "MYCYCLE LOTS"
-    //     }
-    // }
-    // ]
-
-    // L.geoJSON(vehicleType, {
-    //     style: function(feature){
-    //         switch (feature.properties.TYPE) {
-    //             case 'CAR LOTS': return {color: "#ff0000"};
-    //             case 'MYCYCLE LOTS':   return {color: "#00FF00"};
-    //     }
-    // }
-    // }).addTo(map);
-
+        // }).addTo(map);
+    }).addTo(group);
 
     // Read the carpark rates geojson file
     let rates = await axios.get("data/carpark-rates/carpark-rates_LL.geojson")
     let rate_layer = L.geoJson(rates.data, {
         onEachFeature: function (feature, layer) {
             // console.log(feature)
-            let divElement = document.createElement('div');
+            // let divElement = document.createElement('div');
             // divElement.innerHTML = feature.properties.Description;
             let carpark = feature.properties.carpark;
             let cat = feature.properties.category
@@ -93,6 +70,7 @@ window.addEventListener('DOMContentLoaded', async () => {
             let satRates = feature.properties.saturday_rate;
             let sunRates = feature.properties.sunday_publicholiday_rate
 
+            
 
             layer.bindPopup(`<div>
             <h3>${carpark}</h2>
@@ -101,39 +79,89 @@ window.addEventListener('DOMContentLoaded', async () => {
             <p><b>Saturday Rates: </b>${satRates}</p>
             <p><b>Sunday/PH Rates: </b>${sunRates}</p>
             <div>`);
-
         }
-    }).addTo(group2)
+        
+    }
+   
+
+    ).addTo(group2);
+    
+    // // Attempt to filter by category (east side)....
+    
+    let EastRate_layer = L.geoJson(rates.data, {
+        filter: filterEast,
+
+        onEachFeature: function (feature, layer) {
+            let carpark = feature.properties.carpark;
+            let cat = feature.properties.category
+            let wkDayRates = feature.properties.weekdays_rate_1;
+            let satRates = feature.properties.saturday_rate;
+            let sunRates = feature.properties.sunday_publicholiday_rate
+            layer.bindPopup(`<div>
+            <h3>${carpark}</h2>
+            <p><b>Region: </b>${cat} </p>
+            <p><b>Weekday Rates: </b>${wkDayRates}</p>
+            <p><b>Saturday Rates: </b>${satRates}</p>
+            <p><b>Sunday/PH Rates: </b>${sunRates}</p>
+            <div>`);
+        }
+        
+    }
+    ).addTo(group3East);
+
+    let HotelRate_layer = L.geoJson(rates.data, {
+        filter: filterHotel,
+
+        onEachFeature: function (feature, layer) {
+            let carpark = feature.properties.carpark;
+            let cat = feature.properties.category
+            let wkDayRates = feature.properties.weekdays_rate_1;
+            let satRates = feature.properties.saturday_rate;
+            let sunRates = feature.properties.sunday_publicholiday_rate
+            layer.bindPopup(`<div>
+            <h3>${carpark}</h2>
+            <p><b>Region: </b>${cat} </p>
+            <p><b>Weekday Rates: </b>${wkDayRates}</p>
+            <p><b>Saturday Rates: </b>${satRates}</p>
+            <p><b>Sunday/PH Rates: </b>${sunRates}</p>
+            <div>`);
+        }
+        
+    }
+    ).addTo(group3Hotels);
+    
 })
 
 
-
-
-async function getAvailablelayer() {
-    let availResponse = await axios.get("data/carpark-rates/CarParkAvailability.json")
-        .bindPopup('<p>${AvailableLots}</p>')
-
-    for (let obj of availResponse.data) {
-        const { Development, Location } = obj;
-        L.circle(Location, {
-            color: 'yellow',
-            fillColor: "yellow",
-            fillOpacity: 0.8,
-            radius: 55
-        }).bindPopup(`<p>${Development}</p>`).addTo(group3);
-    }
-    return;
-}
-
 // Adding layers control to the maps
-let baseLayers ={
+let baseLayers = {
     'Available URA Carparks': group,
-    'Carpark Rates': group2
+    'Carpark Rates': group2,
+    // 'East Car Rates':group3
 }
 
-// let overlays = {
-//     'Green Circle':group3
-// }
+let overlays = {
+    'East Rates':group3East,
+    'Hotel Rates':group3Hotels
+}
 // Add layers to map
-L.control.layers(baseLayers).addTo(map);
+L.control.layers(baseLayers, overlays).addTo(map);
+
+
+// External UI button for users to click car rates
+
+document.querySelector('#toggle-btn').addEventListener('click', function(){
+    if (map.hasLayer(group2) == false) {
+        map.addLayer(group2);
+        map.removeLayer(group)
+    }
+})
+
+document.querySelector('#switch-btn').addEventListener('click', function(){
+    if (map.hasLayer(group) == false) {
+        map.addLayer(group);
+        map.removeLayer(group2)
+    }
+})
+
 
