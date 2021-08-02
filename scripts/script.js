@@ -5,14 +5,23 @@ let singapore = [1.29, 103.85];
 let map = L.map('map').setView(singapore, 12);
 
 // setup the tile layers
-L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 18,
-    id: 'mapbox/streets-v11',
-    tileSize: 512,
-    zoomOffset: -1,
-    accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw' //demo access token
-}).addTo(map);
+L.tileLayer(
+    "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+    {
+        attribution:
+            'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: "mapbox/streets-v11",
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken:
+            "pk.eyJ1IjoiZXh0cmFrdW4iLCJhIjoiY2swdnZtMWVvMTAxaDNtcDVmOHp2c2lxbSJ9.4WxdONppGpMXeHO6rq5xvg"
+    }
+).addTo(map);
+
+let group = L.layerGroup();
+let group2 = L.layerGroup();
+let group3 = L.layerGroup();
 
 
 //   Read the URA available parking lot 
@@ -38,13 +47,13 @@ window.addEventListener('DOMContentLoaded', async () => {
 
         }
 
+    // }).addTo(map);
+        }).addTo(group);      
 
-    }).addTo(map);
-    
-    //   style the URA parking layer
-    ura_layer.setStyle({
-        'color': 'blue',
-    })
+    // //   style the URA parking layer
+    // ura_layer.setStyle({
+    //     'color': 'blue',
+    // })
     // // adding layers based on carpark type
 
     // var vehicleType =[{
@@ -94,29 +103,37 @@ window.addEventListener('DOMContentLoaded', async () => {
             <div>`);
 
         }
-    }).addTo(map);
-    
-    
-
+    }).addTo(group2)
 })
 
 
 
-// let AvailableLayer = L.layerGroup();
 
-// async function getAvailablelayer() {
-//     let availResponse = await axios.get("data/carpark-rates/CarParkAvailability.json")
-//         .bindPopup('<p>${AvailableLots}</p>')
+async function getAvailablelayer() {
+    let availResponse = await axios.get("data/carpark-rates/CarParkAvailability.json")
+        .bindPopup('<p>${AvailableLots}</p>')
 
-//     for (let obj of availResponse.data) {
-//         const { Development, Location } = obj;
-//         L.circle(Location, {
-//             color: 'yellow',
-//             fillColor: "yellow",
-//             fillOpacity: 0.5,
-//             radius: 50
-//         }).bindPopup(`<p>${Development}</p>`).addTo(AvailableLayer);
-//     }
-// }
+    for (let obj of availResponse.data) {
+        const { Development, Location } = obj;
+        L.circle(Location, {
+            color: 'yellow',
+            fillColor: "yellow",
+            fillOpacity: 0.8,
+            radius: 55
+        }).bindPopup(`<p>${Development}</p>`).addTo(group3);
+    }
+    return;
+}
 
 // Adding layers control to the maps
+let baseLayers ={
+    'Available URA Carparks': group,
+    'Carpark Rates': group2
+}
+
+// let overlays = {
+//     'Green Circle':group3
+// }
+// Add layers to map
+L.control.layers(baseLayers).addTo(map);
+

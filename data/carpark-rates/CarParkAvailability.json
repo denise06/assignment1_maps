@@ -1,6 +1,4 @@
-{
-    "odata.metadata": "http://datamall2.mytransport.sg/ltaodataservice/$metadata#CarParkAvailability",
-    "value": [
+ [
         {
             "CarParkID": "1",
             "Area": "Marina",
@@ -47,4 +45,3 @@
             "Agency": "LTA"
         }
     ]
-}
