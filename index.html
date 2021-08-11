@@ -40,7 +40,7 @@
                     </a>
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">SEARCH</a>
+                        <a class="nav-link active" aria-current="page" href="index.html">SEARCH</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="about.html">ABOUT</a>
@@ -56,19 +56,25 @@
         </div>
     </nav>
     <div class= "objective-control">
-        <button id="toggle-btn">Carpark Rates</button>
-        <button id="switch-btn">Available Carparks</button>
+        <button id="rates-btn">Carpark Rates</button>
+        <button id="avail-btn">Available Carparks</button>
     </div>
     
-    <div id = "rates-select">
-        <input type="radio" class="radius ">
-        <label class="pr-3">Attractions </label>
-        <input type="radio" class="radius ">
-        <label class="pr-3">Hotels</label>
-        <input type="radio" class="radius ">
-        <label class="pr-3">Orchard</label>
-    </div>
+    <!-- <div id = "rates-select">
+        <input type="radio" name ="purpose" id= "attract" value = attract>
+        <label class="pr-1">Attractions </label>
+        <input type="radio" name ="purpose" id= "hotel" value = "hotel" >
+        <label class="pr-1">Hotels</label>
+        <input type="radio" name ="purpose" id= "orchard" value = "orchard" >
+        <label class="pr-1">Orchard</label>
+    </div> -->
    
+    <div id = "rates-select">
+        <input type="radio" name ="purpose" id= "attract" value = "attract"> Attractions
+        <input type="radio" name ="purpose" id= "hotel" value = "hotel" > Hotels
+        <input type="radio" name ="purpose" id= "orchard" value = "orchard" > Orchard
+    </div>
+
     
     <div id="map"></div>
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"

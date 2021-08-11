@@ -168,27 +168,35 @@ L.control.layers(baseLayers, overlays).addTo(map);
 
 
 // External UI button for users to quickly filter between car rates and car availabilty
-
-document.querySelector('#toggle-btn').addEventListener('click', function(){
+document.querySelector('#rates-btn').addEventListener('click', function(){
     if (map.hasLayer(group2) == false) {
         map.addLayer(group2);
         map.removeLayer(group)
     }
 })
-
-document.querySelector('#switch-btn').addEventListener('click', function(){
+// Available Carpark button
+document.querySelector('#avail-btn').addEventListener('click', function(){
     if (map.hasLayer(group) == false) {
         map.addLayer(group);
         map.removeLayer(group2);
-        map.setView(orchard,18)
     }
 })
 
-// // event listener --> query selector (read radio value/check/selected)
-// // call group3Attract layer
-// window.addEventListener('click', async () => {
-//     document.querySelector('rates-select')
-    
 
+// add radio buttons as overlays 
+if (document.querySelector('input[name="purpose"]')) {
+    document.querySelectorAll('input[name="purpose"]').forEach((elem) => {
+      elem.addEventListener("change", function(event) {
+        var item = event.target.value;
+        console.log(item);
+        if (item == "hotel"){
+            map.addLayer(group3Hotels)
+        } else if (item == "attract") {
+            map.addLayer(group3Attract)
+        } else {
+            map.addLayer(group3Orchard)
+        }
 
-// }
+      });
+    });
+  }

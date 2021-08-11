@@ -2,7 +2,55 @@
     height: 500px
 }
 
+main{
+    /* careful, vh not px */
+    /* vh	Relative to 1% of the height of the viewport* */
+    /* px is an absolute size */
+    height: 80vh;
+    background-image: url('images/24-hours.png');
+    background-size: cover;
+    background-position:center-top;
+}
+/* define where u want the overlayed words to be at */
+/* how many % away from the top, the higher, the more it gets pushed down */
+.overlay{
+    position:relative;
+    top:53%;
+    height: 48%;
+    background-image: linear-gradient(rgba(238, 215, 180, 0), rgba(233, 150, 27, 0.865));
+/* image too zoomed in, bad sizing */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.overlay >div {
+    width: 60%;
+    /* white fonts */
+    color:white;
+    /* align text center */
+    text-align: center;
+}
+
+
+.objective-control{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 10px 10px;
+    font-weight: 600;
+    text-align: center;
+    
+}
+
+.objective-control> #rates-btn{
+    margin-right: 10px;
+}
+
+/* space out the radio button selection */
+input[type="radio"]{
+    margin: 0 5px 0 5px;
+  }
 
 .navbar-brand>img{
     height: 60px
