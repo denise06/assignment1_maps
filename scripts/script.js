@@ -1,6 +1,5 @@
 // define singapore lat & long
 let singapore = [1.29, 103.85];
-let orchard =[ 103.828414,1.3074326]
 
 // setting up viewer's map POV
 let map = L.map('map').setView(singapore, 12);
@@ -183,7 +182,7 @@ document.querySelector('#avail-btn').addEventListener('click', function(){
 })
 
 
-// add radio buttons as overlays 
+// add radio buttons selections as overlays 
 if (document.querySelector('input[name="purpose"]')) {
     document.querySelectorAll('input[name="purpose"]').forEach((elem) => {
       elem.addEventListener("change", function(event) {
