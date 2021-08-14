@@ -36,6 +36,19 @@
     height: 500px
 }
 
+.hotel-icon{
+    z-index: 997!important;
+}
+
+.orchard-icon{
+    z-index: 996!important;
+}
+
+.attract-icon{
+    z-index: 998!important;
+}
+
+
 .objective-control> #rates-btn{
     margin-right: 10px;
 }
