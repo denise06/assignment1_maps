@@ -13,7 +13,6 @@
     border-bottom-width: 3px;
     border-color:grey;
     font-family: Cairo,Roboto,sans-serif;
-    /* letter-spacing:1px; */
     font-size: 1.5rem;
 }
 
@@ -33,7 +32,9 @@
 
 /* for index.html */
 #map {
-    height: 500px
+    /* height: 500px */
+    height: 80vh;
+    width: 100vw
 }
 
 .hotel-icon{
@@ -49,19 +50,33 @@
 }
 
 
-.objective-control> #rates-btn{
-    margin-right: 10px;
+#filter-map {
+    position: absolute;
+    bottom: 6.5vh;
+    z-index: 10000;
+    width: 450px;
 }
 
-.objective-control{
-    display: flex;
+
+#objective-control{
+    /* display: flex;
     flex-direction: row;
     width: 100%;
-    padding: 10px 10px;
-    font-weight: 600;
-    text-align: center;
-    
+    padding: 10px 10px; */
+    /* font-weight: 600;
+    text-align: center; */
+    background-color: white;
+    padding: 20px;;
 }
+
+#rates-select{
+    background-color: white;
+    padding: 10px;;
+}
+label {
+    margin: 5px 3px;
+}
+
 
 /* space out the radio button selection */
 input[type="radio"]{

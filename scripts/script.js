@@ -1,8 +1,8 @@
-// define singapore lat & long
-let singapore = [1.29, 103.85];
-
 // setting up viewer's map POV
-let map = L.map('map').setView(singapore, 12);
+let map = L.map('map').setView([1.3598, 103.8107], 12);
+// map.setMaxBounds(map.getBounds());
+map.setMinZoom(12);
+
 
 // setup the tile layers
 L.tileLayer(
@@ -248,7 +248,6 @@ document.querySelector('#avail-btn').addEventListener('click', function () {
 })
 
 
-
 // add radio buttons selections as overlays 
 if (document.querySelector('input[name="purpose"]')) {
     document.querySelectorAll('input[name="purpose"]').forEach((elem) => {
@@ -256,14 +255,36 @@ if (document.querySelector('input[name="purpose"]')) {
             var item = event.target.value;
             console.log(item);
             if (item == "hotel") {
-                map.addLayer(group3Hotels)
+                map.addLayer(group3Hotels),
+                map.removeLayer(group3Orchard),
+                map.removeLayer(group3Attract)
             } else if (item == "attract") {
                 map.addLayer(group3Attract)
-            } else {
+                map.removeLayer(group3Orchard),
+                map.removeLayer(group3Hotels)
+            } else if (item == "orchard"){
                 map.addLayer(group3Orchard)
+                map.removeLayer(group3Hotels)
+                map.removeLayer(group3Attract)
+            } else {
+                map.removeLayer(group3Hotels)
+                map.removeLayer(group3Attract)
+                map.removeLayer(group3Orchard)
             }
 
         });
     });
 }
+
+// collapse and expand drop down of external action buttons 
+$('#tab-toggle').click(() => {
+    $('#myTabContent').slideToggle();
+    $('#tab-toggle svg').toggleClass('fa-rotate-180');
+});
+
+
+
+// // remove all layers and reset map by clicking on website Icon
+// map.removeLayer(image)
+
 
