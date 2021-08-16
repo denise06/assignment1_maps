@@ -27,7 +27,7 @@ _Advance (current version will not have any development for this level)_
 
 ## Demo
 
-A live demo can be found here. https://anacodae.github.io/Assignment2-HDBCarparkNearby/ 
+A live demo can be found here. 
 
 ![Overview of Project in different devices](https://github.com/denise06/assignment1_maps/blob/main/images/Demo.png)
 
