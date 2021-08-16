@@ -27,7 +27,7 @@ _Advance (current version will not have any development for this level)_
 
 ## Demo
 
-A live demo can be found here. 
+A live demo can be found here https://denise06.github.io/assignment1_maps/. 
 
 ![Overview of Project in different devices](https://github.com/denise06/assignment1_maps/blob/main/images/Demo.png)
 
@@ -93,7 +93,7 @@ Manual Testing is done to ensure that the all functions are functional.
 
 This site is hosted using GitHub pages, deployed directly from the master branch. 
 The deployed site will update automatically upon new commits to the master branch. In order for the site to deploy correctly on GitHub pages, the landing page must be named index.html.
-To run locally, you may click on the following link (https://anacodae.github.io/Assignment2-HDBCarparkNearby/)   into your terminal. 
+To run locally, you may click on the following link (https://denise06.github.io/assignment1_maps/)   into your terminal. 
 To cut ties with this GitHub repository, type.git remote rm origin.into the terminal.
 
 ## Credits
