@@ -15,7 +15,7 @@ L.tileLayer(
         tileSize: 512,
         zoomOffset: -1,
         accessToken:
-            "pk.eyJ1IjoiZXh0cmFrdW4iLCJhIjoiY2swdnZtMWVvMTAxaDNtcDVmOHp2c2lxbSJ9.4WxdONppGpMXeHO6rq5xvg"
+            "pk.eyJ1IjoiZGVuaXNlMDYiLCJhIjoiY2tzZW16eGcyMTFueDJvcXFpcjRpbmY0eSJ9.AzJkmtv0tJURlXptLLy8Gg"
     }
 ).addTo(map);
 
@@ -82,7 +82,7 @@ let markerClusterLayer = L.markerClusterGroup();
 window.addEventListener('DOMContentLoaded', async () => {
     let response = await axios.get("data/carpark-rates/ura_parking.geojson");
     let ura_layer = L.geoJson(response.data, {
-        
+        color: 'black',
         onEachFeature: function (feature, layer) {
             // console.log(feature)
 
@@ -283,8 +283,5 @@ $('#tab-toggle').click(() => {
 });
 
 
-
-// // remove all layers and reset map by clicking on website Icon
-// map.removeLayer(image)
 
 

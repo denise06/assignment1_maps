@@ -1,4 +1,4 @@
-# Carparkwhere?
+# WheretoPark?
 
 ## PROJECT  1 :  INTERACTIVE FRONTEND PROGRAMMING
 
@@ -14,8 +14,9 @@ _Basic_
 - limit carpark rates markets to Singapore Attractions, Hotels, Orchard Road vicinity
 - display the various carparks availability status for different vehicle types
 - display carpark rates as overlay over the carpark availability
+- clear all overlay display with a click
 
-_Intermediate (comming soon...)
+_Intermediate (comming soon...)_
 - filter the carpark availability based on vehicle type
 - allow user to input the destination so that he can plan ahead for his journey
 - allow user to chose the desired carpark to go to & plot the route to the carpark chosen
@@ -36,38 +37,40 @@ User :
 - Drivers
 
 Considerations :  
-- Have no opportunity to surf net as their hands are on the wheels more often than not Require a simple interface to locate the carpark information
-- Some drivers may like to prepare ahead of their journey
-- I identify that most drivers will be utilizing their mobile devices to assess this webpage
+- Drivers heading to town or attractions will tend to plan their journey ahead of time, hence a website that not only provides the carpark rates but also the availability will be really beneficial 
+- Most users will be using the mobile website to access the page.
 
 ## Technologies
 1. HTML
 2. CSS
 3. Bootstrap
 4. Javascript
-5. Leaflet
 
 ## Features
-This site orientate around Google Map and uses JQuery to complete the interface
+This site orientate around the use of leaflet and use of bootstrap html features.
 
 My Design of the site:
-- Simple & Quick Access to information and location on the carpark availability.
-- Pre-fixed options using Radio buttons allow user to enter the selection with ease.
-- Every selection will return a immediate response on the display, hence allows user to get their desired information faster
-- Website is design using mobile-first approach
-- 2 step procedure. User only need to choose or enter his location and select the range of nearby carparks.
-- Info Window opens up upon clicking on the carpark marker; providing them the following key information;
-    - Address of location
-    - Number of lots available for the carpark
-    - Type of carpark (Open/Basement/Multi-Storey)
-- Location search function is added for users who wants to plan their journey.
+- Simple and quick 
+- Predefined filter option with the use of radio buttons allow users to filter the carpark rates with a single click.
+- Each selection will change the user display on the map immediately
+- Clicking on the car park rate markers will show: 
+    - Carpark Name
+    - Region 
+    - Weekday Rates
+    - Saturday Rates
+    - Sunday/PH rates
+- Clicking on the carpark availability will display the following:
+    - Type of carpark lots (Car lots, Lorry lots, Trailer Lots, Motor Lots)
+    - Number of lots available
 
-_Limitations: Page will take while to load the data from the website as the website uses 3 callback functions to combine 2 data sets and also a website to convert the 3414(SVY21) to 4326(WGS84)_
+
+_Limitations: 
 
 _Errors in console is due to the limit set by oneMap.sg, does not affect the function of the site_
 
 _Features Left to Implement_
-_- Route to the selected carpark from current location (Not implemented due to cost consideration)_
+_- Allow user to search the designated location and return the nearest carpark _
+_- A rout to the searched carpark from user's current location
 
 ## Testing
 Manual Testing is done to ensure that the all functions are functional.
@@ -75,11 +78,16 @@ Manual Testing is done to ensure that the all functions are functional.
 
 *No* | *Steps* | *Expected Results* | *Observations*
 --- | --- | --- | ---
-1 | `Page show load with current location and upon clicking on 'Current Location' radio button` | `Display the current location of user` | **Pass** 
-2 | `Click on 'Find Location' radio button` | `Display an input box for user to key in the location` | **Pass** 
-3 | `Click on the different radius to view nearby carparks` | `Display markers for surrounding markers within selected radius` | **Pass** 
-4 | `Enter location in the input box and select from dropdown` | `Display will center to the selected destination` | **Pass** 
-5 | `Click on the carparks marker` | `Show an infoWindow showing; carpark address, carpark type, lots available, any free parking and distance from current location` | **Pass** 
+1 | `When page is loaded ` | `No markers or lines on the map` | **Pass** 
+2 | `Click on 'Car Availability' button` | `Display the car availability layer, lines` | **Pass** 
+3 | `Click on 'Carpark Rates` | `Display carpark rates cluster` | **Pass** 
+4 | `Drilldown the cluster layer to display on marker, click on the individual marker` | `Display the Carpark Name, Region, Weekday Rates, Saturday Rates, Sunday/PH rates` | **Pass** 
+5 | `Click on attractions radio button` | `Display binoculars  icons overlay` | **Pass** 
+6 | `Click on hotel radio button` | `Remove binoculars overlay and display hotel icons overlay` | **Pass** 
+7 | `Click on orchard radio button` | `Remove hotel overly and display shopping bag icons overlay` | **Pass** 
+8 | `Click on clear overlay radio button` | `Remove overlays` | **Pass** 
+9 | `Click on downward arrow button at the filter option` | `Filtered options will collapse` | **Pass** 
+
 
 ## Deployment
 
@@ -91,18 +99,17 @@ To cut ties with this GitHub repository, type.git remote rm origin.into the term
 ## Credits
 
 -Content_
-Data were extracted from https://data.gov.sg for the location of carpark and live data of the carpark availability.
+Data were extracted from https://data.gov.sg
  
-Design of the layout and functions are original by myself
+Design of the layout and functions are original
 
 Media
-Markers Icons were taken from https://icons8.com/icons/set/map-marker, a icon image library
+- Dropdown were taken from https://pro.fontawesome.com/releases/v5.10.0/css/all.css, a font/icon image library
+- Marker icons were taken from https://flaticon.com
+
+
 
 Acknowledgements
-1. The website used a conversion function from https://docs.onemap.sg/ to convert the 3414(SVY21) to 4326(WGS84)
-2. Reference to Google Map Dev Examples for constructing and combining the various functions;
-    - GeoLocation
-    - AutoComplete
-    - Marker Placement
-    - InfoWindow
- 
+1. Use of Font Awesome full icons
+2. Use of open street map 
+
