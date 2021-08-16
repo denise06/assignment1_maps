@@ -10,20 +10,20 @@ It aims to aid drivers in planning their journey.
 The website plans to have the following features.
 
 _Basic_
-- display the map
-- limit carpark rates markets to Singapore Attractions, Hotels, Orchard Road vicinity
-- display the various carparks availability status for different vehicle types
-- display carpark rates as overlay over the carpark availability
-- clear all overlay display with a click
+- Display the map
+- Limit carpark rates markets to Singapore Attractions, Hotels, Orchard Road vicinity
+- Display the various carparks availability status for different vehicle types
+- Display carpark rates as overlay over the carpark availability
+- Clear all overlay display with a click
 
-_Intermediate (comming soon...)_
-- filter the carpark availability based on vehicle type
-- allow user to input the destination so that he can plan ahead for his journey
-- allow user to chose the desired carpark to go to & plot the route to the carpark chosen
+_Intermediate (coming soon...)_
+- Filter the carpark availability based on vehicle type
+- Allow user to input the destination so that he can plan ahead for his journey
+- Allow user to chose the desired carpark to go to & plot the route to the carpark chosen
 
 _Advance (current version will not have any development for this level)_
-- allow user to store the favorite carpark as part of their database
-- get the current location of the user
+- Allow user to store the favorite carpark as part of their database
+- Get the current location of the user
 
 ## Demo
 
@@ -60,7 +60,7 @@ My Design of the site:
     - Saturday Rates
     - Sunday/PH rates
 - Clicking on the carpark availability will display the following:
-    - Type of carpark lots (Car lots, Lorry lots, Trailer Lots, Motor Lots)
+    - Type of vehicle lots (Car lots, Lorry lots, Trailer Lots, Motor Lots)
     - Number of lots available
 
 
@@ -70,7 +70,7 @@ _Errors in console is due to the limit set by oneMap.sg, does not affect the fun
 
 _Features Left to Implement_
 _- Allow user to search the designated location and return the nearest carpark _
-_- A rout to the searched carpark from user's current location
+_- A route to the searched carpark from user's current location
 
 ## Testing
 Manual Testing is done to ensure that the all functions are functional.
@@ -101,7 +101,7 @@ To cut ties with this GitHub repository, type.git remote rm origin.into the term
 -Content_
 Data were extracted from https://data.gov.sg
  
-Design of the layout and functions are original
+Designs, layout and functions are original
 
 Media
 - Dropdown were taken from https://pro.fontawesome.com/releases/v5.10.0/css/all.css, a font/icon image library
