@@ -29,7 +29,7 @@ _Advance (current version will not have any development for this level)_
 
 A live demo can be found here. https://anacodae.github.io/Assignment2-HDBCarparkNearby/ 
 
-![Overview of Project in different devices](https://raw.githubusercontent.com/AnaCodaE/Assignment2-HDBCarparkNearby/master/images/project.png)
+![Overview of Project in different devices](https://github.com/denise06/assignment1_maps/blob/main/images/Demo.png)
 
 ## UX
 My Considerations for the website:
