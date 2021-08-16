@@ -11,10 +11,14 @@ The website plans to have the following features.
 
 _Basic_
 - Display the map
-- Limit carpark rates markets to Singapore Attractions, Hotels, Orchard Road vicinity
+- Clicking on the About tab on the navigation bar brings users to a short summary of the website
+- Quick filters through the use of radio buttons to display icons which displays the carpark rates markets to Singapore Attractions, Hotels, and Orchard Road vicinity. 
+- Clustered the carpark rates markers to provide a better user experience instead of being overwhelmed with huge bunch of markers
 - Display the various carparks availability status for different vehicle types
-- Display carpark rates as overlay over the carpark availability
+- A collapsable navigation bar allows users to hide the filter options and have a whole view of the map
 - Clear all overlay display with a click
+- The footer section includes a mailing list to inform subscribers about new updates to the website.
+
 
 _Intermediate (coming soon...)_
 - Filter the carpark availability based on vehicle type
@@ -24,6 +28,15 @@ _Intermediate (coming soon...)_
 _Advance (current version will not have any development for this level)_
 - Allow user to store the favorite carpark as part of their database
 - Get the current location of the user
+
+## UI
+The navigation bar is responsive for small, medium and large screens based on Bootstrap's breakpoints. The hamburger icon is visible on the top left hand corner for smaller screens. 
+
+Design was kept to a simple black and white which stands out admist the blue and grey maps. The use of bolded and thick fonts in the navigation bar makes it stand out and and appealing to users. 
+
+The main highlight of the map is to allow drivers to find out about the carpark rates of the destination that they have in mind. The click of "Carpark rates" button will display the clustered layers and users can zoom in and drill down to the area that they are planning to go, giving them all the options around the area. 
+
+Overlays which acts as filters are helpful as they are generally the places people will plan ahead before driving there. 
 
 ## Demo
 
